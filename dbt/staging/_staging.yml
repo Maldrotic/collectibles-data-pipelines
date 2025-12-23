@@ -1,0 +1,58 @@
+models:
+  - name: stg_events_backfill
+    description: "Staging model for events backfill"
+    columns:
+      - name: event_id
+        description: "Event identifier"
+        data_tests:
+          - not_null
+          - unique
+      - name: event_source
+        description: "Event source"
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: ['cards', 'orders', 'manufacturing']
+      - name: event_type
+        description: "Event type"
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: ['OrderCreated', 'CardCatalogEntryInserted', 'ManufacturingBatch']
+      - name: event_payload
+        description: "Event payload"
+        data_tests:
+          - not_null
+      - name: inserted_at
+        description: "Timestamp when the event was inserted into the system"
+        data_tests:
+          - not_null
+  
+  - name: stg_events_stream
+    description: "Staging model for events stream"
+    columns:
+      - name: event_id
+        description: "Event identifier"
+        data_tests:
+          - not_null
+          - unique
+      - name: event_source
+        description: "Event source"
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: ['cards', 'orders', 'manufacturing']
+      - name: event_type
+        description: "Event type"
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: ['OrderCreated', 'CardCatalogEntryInserted', 'ManufacturingBatch']
+      - name: event_payload
+        description: "Event payload"
+        data_tests:
+          - not_null
+      - name: inserted_at
+        description: "Timestamp when the event was inserted into the system"
+        data_tests:
+          - not_null

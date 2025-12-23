@@ -1,0 +1,43 @@
+models:
+  - name: dim_card
+    description: "Dimension table containing card catalog information"
+    columns:
+      - name: card_key
+        data_tests:
+          - unique
+          - not_null
+      - name: sku
+        description: "Product SKU identifier"
+        data_tests:
+          - not_null
+          - unique
+      - name: card_name
+        description: "Name/title of the card"
+        data_tests:
+          - not_null
+      - name: sport
+        description: "Sport (e.g., baseball, basketball, football)"
+        data_tests:
+          - not_null
+      - name: player_name
+        description: "Player name on the card"
+        data_tests:
+          - not_null
+      - name: team_name
+        description: "Team name on the card"
+        data_tests:
+          - not_null
+      - name: parallel
+        description: "Parallel type (e.g., Base, Gold /10, 1-of-1)"
+        data_tests:
+          - not_null
+      - name: print_run
+        description: "Number of cards in the print run, must be greater than 0"
+        data_tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: ">= 1"
+      - name: inserted_at
+        description: "Timestamp when the card was inserted into the system"
+        data_tests:
+          - not_null

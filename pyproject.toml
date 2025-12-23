@@ -1,0 +1,13 @@
+[project]
+name = "sr-data-engineer-takehome"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "apache-airflow>=3.1.5",
+    "apache-airflow-providers-common-compat>=1.10.1",
+    "apache-airflow-providers-standard>=1.10.1",
+    "googleapis-common-protos>=1.72.0",
+    "protobuf>=6.33.2",
+]

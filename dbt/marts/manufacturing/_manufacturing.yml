@@ -1,0 +1,53 @@
+models:
+  - name: fct_batch_performance
+    description: "Fact table containing manufacturing batch performance metrics"
+    columns:
+      - name: batch_id
+        description: "Manufacturing batch identifier"
+        data_tests:
+          - not_null
+          - unique
+      - name: card_key
+        description: "Foreign key to dim_card"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_card')
+              field: card_key
+      - name: card_sku
+        description: "Product SKU on the card"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_card')
+              field: sku
+      - name: production_date
+        description: "Date of production"
+        data_tests:
+          - not_null
+      - name: quantity_produced
+        description: "Number of cards produced"
+        data_tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: ">= 0"
+      - name: defect_rate_estimate
+        description: "Estimated defect rate"
+        data_tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: ">= 0 and <= 1"
+      - name: estimated_defect_count
+        description: "Estimated number of defects in the batch (quantity_produced * defect_rate_estimate)"
+        data_tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: ">= 0"
+      - name: production_date
+        description: "The date the batch was produced"
+        data_tests:
+          - not_null
+      - name: inserted_at
+        description: "Timestamp when the batch was inserted into the system"
+        data_tests:
+          - not_null

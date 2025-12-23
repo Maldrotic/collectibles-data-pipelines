@@ -1,0 +1,53 @@
+models:
+  - name: fct_orders
+    description: "Fact table containing order transactions"
+    columns:
+      - name: order_id
+        description: "Order identifier"
+        data_tests:
+          - not_null
+          - unique
+      - name: customer_id
+        description: "Customer identifier"
+        data_tests:
+          - not_null
+      - name: card_key
+        description: "Foreign key to dim_card"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_card')
+              field: card_key
+      - name: card_sku
+        description: "Product SKU"
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_card')
+              field: sku
+      - name: quantity
+        description: "Number of items ordered"
+        data_tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: ">= 1"
+      - name: price_cents
+        description: "Price of the item in cents"
+        data_tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: ">= 0"
+      - name: status
+        description: "Status of the order"
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: ['ORDER_STATUS_UNSPECIFIED', 'ORDER_STATUS_CREATED', 'ORDER_STATUS_SHIPPED', 'ORDER_STATUS_REFUNDED', 'ORDER_STATUS_CANCELLED']
+      - name: ordered_at
+        description: "Timestamp when the order was created"
+        data_tests:
+          - not_null
+      - name: inserted_at
+        description: "Timestamp when the order was inserted into the system"
+        data_tests:
+          - not_null

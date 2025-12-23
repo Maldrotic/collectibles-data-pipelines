@@ -1,0 +1,27 @@
+sources:
+  - name: raw_backfill
+    description: "One-time historical backfill from PostgreSQL"
+    database: collectibles
+    schema: raw
+    tables:
+      - name: events_backfill
+        description: "Historical events loaded from PostgreSQL snapshot"
+        columns:
+          - name: id
+          - name: source
+          - name: type
+          - name: payload
+          - name: inserted_at
+  - name: raw_stream
+    description: "Append-only stream of events from Snowpipe (S3)."
+    database: collectibles
+    schema: raw
+    tables:
+      - name: events_stream
+        description: "Append-only stream of eventsfrom Snowpipe (S3)."
+        columns:
+          - name: id
+          - name: source
+          - name: type
+          - name: payload
+          - name: inserted_at

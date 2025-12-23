@@ -1,0 +1,25 @@
+version: 2
+
+models:
+  - name: int_events_unified
+    description: "Combines stream and backfill events"
+    columns:
+      - name: event_id
+        data_tests:
+          - unique
+          - not_null
+      - name: event_source
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: ['cards', 'orders', 'manufacturing']
+      - name: event_type
+        data_tests:
+          - accepted_values:
+              values: ['OrderCreated', 'CardCatalogEntryInserted', 'ManufacturingBatch']
+      - name: event_payload
+        data_tests:
+          - not_null
+      - name: ingested_at
+        data_tests:
+          - not_null
