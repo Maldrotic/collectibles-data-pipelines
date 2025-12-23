@@ -141,3 +141,4 @@ There are two parallel loading strategies to get data from AWS to Snowflake. The
  that the number of cards sold does not exceed the number of cards produced (combining data from
  the `fct_orders` and `fct_batch_performance` tables). This test could trigger an alert to notify
  the team that a specific card was somehow oversold.
+- Implement AWS architecture using terraform.
